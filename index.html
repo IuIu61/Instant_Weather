@@ -2,58 +2,80 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <!-- La balise meta viewport est indispensable pour le responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Instant Weather - Consultez la météo de votre commune">
     <title>Instant Weather</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Instant Weather</h1>
-        <p>Consultez la météo de votre commune en un instant</p>
-    </header>
+    <div class="app-container">
+        <header>
+            <h1>Instant Weather</h1>
+            <p>Découvrez la météo de votre commune en un instant.</p>
+        </header>
 
-    <main>
-        <!-- Section 1 : Formulaire de recherche -->
-        <section class="search-section" aria-labelledby="form-title">
-            <h2 id="form-title" class="sr-only">Rechercher une commune</h2>
-            
-            <form id="weather-form">
+        <main>
+            <!-- Section Formulaire -->
+            <section class="glass-panel form-section" aria-labelledby="form-title">
+                <h2 id="form-title" class="sr-only">Recherche de commune</h2>
+                
+                <!-- Étape 1 : Code postal -->
                 <div class="form-group">
-                    <label for="cp-input">Code Postal :</label>
-                    <!-- Le pattern aide à la validation W3C en exigeant 5 chiffres -->
-                    <input type="text" id="cp-input" name="cp" pattern="[0-9]{5}" placeholder="Ex: 14123" required aria-required="true">
+                    <label for="postal-code">1. Saisissez votre code postal</label>
+                    <div class="input-action-group">
+                        <input type="text" id="postal-code" placeholder="Ex: 35000" pattern="[0-9]{5}" aria-required="true">
+                        <button type="button" id="btn-submit-postal" class="btn-primary" aria-label="Valider le code postal">Envoyer</button>
+                    </div>
                 </div>
 
+                <!-- Étape 2 : Choix de la commune (À remplir dynamiquement en JS) -->
                 <div class="form-group">
-                    <label for="commune-select">Commune :</label>
-                    <!-- Ce select sera rempli par le JavaScript après la saisie du code postal -->
-                    <select id="commune-select" name="commune" disabled required aria-required="true">
-                        <option value="">-- Saisissez d'abord un code postal --</option>
-                    </select>
+                    <label for="commune-select">2. Choisissez votre commune</label>
+                    <div class="input-action-group">
+                        <select id="commune-select" aria-required="true" disabled>
+                            <option value="">Sélectionnez d'abord un code postal</option>
+                            <!-- Les options seront générées en JavaScript -->
+                        </select>
+                        <button type="button" id="btn-submit-commune" class="btn-primary" aria-label="Valider la commune" disabled>Envoyer</button>
+                    </div>
                 </div>
+            </section>
 
-                <!-- Le bouton sera activé en JS quand une commune sera sélectionnée -->
-                <button type="submit" id="submit-btn" disabled>Afficher la météo</button>
-            </form>
-        </section>
-
-        <!-- Section 2 : Résultats Météo (Cachée par défaut) -->
-        <!-- La zone est "aria-live" pour que les lecteurs d'écran annoncent les nouveaux résultats (WCAG) -->
-        <section id="weather-results" class="results-section hidden" aria-live="polite">
-            <h2>Météo du jour</h2>
-            <div id="weather-data-container" class="weather-data">
-                <!-- Tes collègues JS viendront injecter le HTML dynamique ici : -->
-                <!-- Température minimale, maximale, probabilité de pluie et ensoleillement -->
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>Projet de groupe - Instant Weather (V1)</p>
-    </footer>
-
-    <script src="api_code_postal.js"></script>
-    <script src="api_meteo.js"></script>
+            <!-- Section Résultats Météo (V1) -->
+            <section id="weather-results" class="glass-panel results-section" aria-live="polite">
+                <h2>Aperçu Météo</h2>
+                
+                <div class="weather-grid">
+                    <!-- Température Minimale -->
+                    <div class="weather-card">
+                        <div class="icon">📉</div>
+                        <h3 class="data-label">Temp. Minimale</h3>
+                        <p class="data-value" id="t-min">-- °C</p>
+                    </div>
+                    
+                    <!-- Température Maximale -->
+                    <div class="weather-card">
+                        <div class="icon">📈</div>
+                        <h3 class="data-label">Temp. Maximale</h3>
+                        <p class="data-value" id="t-max">-- °C</p>
+                    </div>
+                    
+                    <!-- Probabilité de pluie -->
+                    <div class="weather-card">
+                        <div class="icon">🌧️</div>
+                        <h3 class="data-label">Proba. de pluie</h3>
+                        <p class="data-value" id="rain-prob">-- %</p>
+                    </div>
+                    
+                    <!-- Heures d'ensoleillement -->
+                    <div class="weather-card">
+                        <div class="icon">☀️</div>
+                        <h3 class="data-label">Ensoleillement</h3>
+                        <p class="data-value" id="sun-hours">-- h</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

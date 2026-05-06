@@ -1,14 +1,20 @@
-/* Définition de variables pour maintenir une cohérence et respecter les contrastes WCAG AA */
+/* --- Variables CSS --- */
 :root {
-    --primary-color: #0056b3; /* Bleu foncé, fort contraste sur fond blanc */
-    --primary-hover: #004494;
-    --bg-color: #f4f7f6;
-    --text-color: #333333;
-    --card-bg: #ffffff;
-    --border-radius: 8px;
+    --color-bg-start: #89f7fe;
+    --color-bg-end: #66a6ff;
+    --color-glass-bg: rgba(255, 255, 255, 0.45);
+    --color-glass-border: rgba(255, 255, 255, 0.6);
+    --color-text-main: #1e293b;
+    --color-text-muted: #334155;
+    --color-primary: #2563eb;
+    --color-primary-hover: #1d4ed8;
+    --color-disabled: #94a3b8;
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --radius-main: 16px;
+    --radius-sm: 8px;
 }
 
-/* Reset CSS classique pour une base propre (W3C) */
+/* --- Reset & Base --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,15 +23,18 @@
 
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
+    background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
+    background-attachment: fixed;
+    color: var(--color-text-main);
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    line-height: 1.6;
 }
 
-/* Classe d'accessibilité (WCAG) : masque visuellement un élément tout en le laissant lisible par les lecteurs d'écran */
+/* Classe pour cacher visuellement mais garder pour les lecteurs d'écran (Accessibilité) */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -34,132 +43,166 @@ body {
     margin: -1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+    border: 0;
+}
+
+/* --- Layout Principal --- */
+.app-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 header {
-    background-color: var(--primary-color);
-    color: white;
     text-align: center;
-    padding: 2rem 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
 }
 
-main {
-    flex: 1;
-    width: 100%;
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
 }
 
-/* Styles des cartes (Formulaire et Résultats) */
-.search-section, .results-section {
-    background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    margin-bottom: 2rem;
+header p {
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
+/* --- Effet Glassmorphism (Verre) --- */
+.glass-panel {
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-main);
+    padding: 30px;
+    box-shadow: var(--shadow-glass);
+    margin-bottom: 25px;
+}
+
+.glass-panel h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: var(--color-text-main);
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    padding-bottom: 10px;
+}
+
+/* --- Formulaires --- */
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
-label {
+.form-group label {
     display: block;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
+    color: var(--color-text-main);
 }
 
-input, select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/* Disposition alignée pour l'input/select et son bouton d'envoi */
+.input-action-group {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"], select {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.7);
     font-size: 1rem;
-    color: var(--text-color);
+    color: var(--color-text-main);
+    outline: none;
+    transition: all 0.3s ease;
 }
 
-/* Indicateur visuel de focus pour l'accessibilité */
-input:focus, select:focus {
-    outline: 2px solid var(--primary-color);
-    border-color: var(--primary-color);
+input[type="text"]:focus, select:focus {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
-button {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--primary-color);
+/* --- Boutons --- */
+.btn-primary {
+    padding: 12px 20px;
+    background-color: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-button:hover:not(:disabled) {
-    background-color: var(--primary-hover);
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
 }
 
-button:disabled {
-    background-color: #cccccc;
+.btn-primary:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.btn-primary:disabled, select:disabled {
+    background-color: var(--color-disabled);
     cursor: not-allowed;
-    color: #666666;
+    opacity: 0.7;
 }
 
-/* Styles pour la zone de résultats météo */
-.results-section {
-    text-align: center;
-}
-
-.results-section.hidden {
-    display: none;
-}
-
-.results-section h2 {
-    margin-bottom: 1.5rem;
-    color: var(--primary-color);
-}
-
-/* Grille pour afficher les 4 infos météo demandées dans la V1 */
-.weather-data {
+/* --- Résultats Météo (Grille) --- */
+.weather-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
 }
 
-/* Classe que le JS pourra appliquer aux éléments créés dynamiquement */
-.data-item {
-    background-color: var(--bg-color);
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    border: 1px solid #e0e0e0;
-}
-
-.data-item span {
-    display: block;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-top: 0.5rem;
-}
-
-footer {
+.weather-card {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-sm);
+    padding: 20px;
     text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    color: #555;
-    background-color: white;
-    border-top: 1px solid #e0e0e0;
+    border: 1px solid rgba(255,255,255,0.4);
+    transition: transform 0.3s ease;
 }
 
-/* Responsive Design pour les téléphones */
-@media (max-width: 480px) {
-    .weather-data {
-        grid-template-columns: 1fr; /* Les infos météo passent sur 1 seule colonne */
+.weather-card:hover {
+    transform: translateY(-5px);
+}
+
+.weather-card .icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.data-label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.data-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+    .input-action-group {
+        flex-direction: column;
+    }
+    
+    .btn-primary {
+        width: 100%;
+    }
+    
+    .glass-panel {
+        padding: 20px;
     }
 }
