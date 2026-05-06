@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!-- La balise meta viewport est indispensable pour le responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Weather</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Instant Weather</h1>
+        <p>Consultez la météo de votre commune en un instant</p>
+    </header>
+
+    <main>
+        <!-- Section 1 : Formulaire de recherche -->
+        <section class="search-section" aria-labelledby="form-title">
+            <h2 id="form-title" class="sr-only">Rechercher une commune</h2>
+            
+            <form id="weather-form">
+                <div class="form-group">
+                    <label for="cp-input">Code Postal :</label>
+                    <!-- Le pattern aide à la validation W3C en exigeant 5 chiffres -->
+                    <input type="text" id="cp-input" name="cp" pattern="[0-9]{5}" placeholder="Ex: 14123" required aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="commune-select">Commune :</label>
+                    <!-- Ce select sera rempli par le JavaScript après la saisie du code postal -->
+                    <select id="commune-select" name="commune" disabled required aria-required="true">
+                        <option value="">-- Saisissez d'abord un code postal --</option>
+                    </select>
+                </div>
+
+                <!-- Le bouton sera activé en JS quand une commune sera sélectionnée -->
+                <button type="submit" id="submit-btn" disabled>Afficher la météo</button>
+            </form>
+        </section>
+
+        <!-- Section 2 : Résultats Météo (Cachée par défaut) -->
+        <!-- La zone est "aria-live" pour que les lecteurs d'écran annoncent les nouveaux résultats (WCAG) -->
+        <section id="weather-results" class="results-section hidden" aria-live="polite">
+            <h2>Météo du jour</h2>
+            <div id="weather-data-container" class="weather-data">
+                <!-- Tes collègues JS viendront injecter le HTML dynamique ici : -->
+                <!-- Température minimale, maximale, probabilité de pluie et ensoleillement -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Projet de groupe - Instant Weather (V1)</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,165 @@
+/* Définition de variables pour maintenir une cohérence et respecter les contrastes WCAG AA */
+:root {
+    --primary-color: #0056b3; /* Bleu foncé, fort contraste sur fond blanc */
+    --primary-hover: #004494;
+    --bg-color: #f4f7f6;
+    --text-color: #333333;
+    --card-bg: #ffffff;
+    --border-radius: 8px;
+}
+
+/* Reset CSS classique pour une base propre (W3C) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Classe d'accessibilité (WCAG) : masque visuellement un élément tout en le laissant lisible par les lecteurs d'écran */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Styles des cartes (Formulaire et Résultats) */
+.search-section, .results-section {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+/* Indicateur visuel de focus pour l'accessibilité */
+input:focus, select:focus {
+    outline: 2px solid var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    color: #666666;
+}
+
+/* Styles pour la zone de résultats météo */
+.results-section {
+    text-align: center;
+}
+
+.results-section.hidden {
+    display: none;
+}
+
+.results-section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+/* Grille pour afficher les 4 infos météo demandées dans la V1 */
+.weather-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Classe que le JS pourra appliquer aux éléments créés dynamiquement */
+.data-item {
+    background-color: var(--bg-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #e0e0e0;
+}
+
+.data-item span {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 0.5rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+    background-color: white;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Responsive Design pour les téléphones */
+@media (max-width: 480px) {
+    .weather-data {
+        grid-template-columns: 1fr; /* Les infos météo passent sur 1 seule colonne */
+    }
+}
